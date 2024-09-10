@@ -1,30 +1,49 @@
-
-
-import './App.css'
+import axios from 'axios';
+import { useState } from 'react';
+import './App.css';
 
 function App() {
+  const [inputs, setInputs] = useState("");
+  const [response, setResponse] = useState("");
 
+  async function sendReq(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      const result = await axios.post(`http://localhost:3000/create-story`, {
+        prompt: inputs
+      });
+      setResponse(result.data.story);
+    } catch (error) {
+      console.error('Error:', error);
+      setResponse("An error occurred while processing your request");
+    }
+  }
 
-  return <div className='max-w-2xl mx-auto flex px-4  '>
-    <div className='py-8 flex flex-col justify-center  '>
-    <h1 className='text-4xl font-bold mb-4'> 
-      <span className='text-5xl'> URL to video</span> <br /> with power of AI
-      </h1>
-   
-    <form className=' flex flex-col justify-center ' >
-      <input className='bg-transparent text-white border-2 rounded-full  px-4 py-2 w-full ' type="url" placeholder='http://...' />
-      <button className='bg-emerald-600 text-white mt-4 border rounded-full font-semibold p-2 ' type="submit"> Create video</button>
-    </form>
-    </div>
-    <div className='p-8'>
-      <div className='bg-gray-300 w-[240px] h-[380px]  text-gray-500 font-semibold rounded-lg p-4'>
-      video here
+  return (
+    <div className='max-w-2xl mx-auto flex px-4'>
+      <div className='py-8 flex flex-col justify-center'>
+        <h1 className='text-4xl font-bold mb-4'>
+          <span className='text-5xl'>URL to video</span> <br /> with power of AI
+        </h1>
+        <form className='flex flex-col justify-center' onSubmit={sendReq}>
+          <input
+            className='bg-transparent text-white border-2 rounded-full px-4 py-2 w-full'
+            onChange={(e) => setInputs(e.target.value)}
+            type="url"
+            placeholder='http://...'
+          />
+          <button className='bg-emerald-600 text-white mt-4 border rounded-full font-semibold p-2' type="submit">
+            Create video
+          </button>
+        </form>
+      </div>
+      <div className='p-8'>
+        <div className='bg-gray-300 overflow-auto w-[240px] h-[380px] text-gray-500 font-semibold rounded-lg p-4'>
+          {response || "No response yet"}
+        </div>
       </div>
     </div>
-   
-  </div>
-    
-  
+  );
 }
 
-export default App
+export default App;
