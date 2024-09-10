@@ -5,13 +5,21 @@ import './App.css';
 function App() {
   const [inputs, setInputs] = useState("");
   const [response, setResponse] = useState("");
+  const [loading ,setLoading]=useState(false);
+  // if(loading){
+  //   return <div>
+  //     loading...
+  //   </div>
+  // }
 
   async function sendReq(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
+      setLoading(true)
       const result = await axios.post(`http://localhost:3000/create-story`, {
         prompt: inputs
       });
+      setLoading(false)
       setResponse(result.data.story);
     } catch (error) {
       console.error('Error:', error);
@@ -39,7 +47,8 @@ function App() {
         </form>
       </div>
       <div className='p-8'>
-        <div className='bg-gray-300 overflow-auto w-[360px] h-[420px] text-gray-500 font-semibold rounded-lg p-4'>
+        <div className='bg-gray-300 overflow-auto w-[360px] h-[420px] text-gray-700 font-semibold rounded-lg p-4'>
+         { loading==true ? "loading...": response}
           {response || "No response yet"}
         </div>
       </div>
