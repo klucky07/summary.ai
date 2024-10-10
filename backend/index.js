@@ -5,14 +5,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors(
-  {
-    origin: ['https://summary-ai-utp1.vercel.app/'], 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-    Credentials:true
-  
-  }
-));
+app.use(cors());
 app.use(express.json());
 
 app.get("/test", (req, res) => {
@@ -36,7 +29,7 @@ app.post("/create-story", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('Server is running on port 3000');
 });
 
