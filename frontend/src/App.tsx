@@ -16,7 +16,7 @@ function App() {
     e.preventDefault();
     try {
       setLoading(true)
-      const result = await axios.post(`http://localhost:3000/create-story`, {
+      const result = await axios.post(`https://summary-ai.onrender.com/create-story`, {
         prompt: inputs
       });
       setLoading(false)
