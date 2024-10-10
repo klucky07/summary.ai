@@ -1,4 +1,4 @@
-
+import axios from 'axios';
 import { useState } from 'react';
 import './App.css';
 
@@ -12,31 +12,21 @@ function App() {
   //   </div>
   // }
 
-  async function sendReq(e: { preventDefault: () => void; }) {
+  async function sendReq(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      setLoading(true);
-      const result = await fetch(`https://summary-ai-six.vercel.app/create-story`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt: inputs }),
+      setLoading(true)
+      const result = await axios.post(`https://summary-ai-six.vercel.app/create-story`, {
+        prompt: inputs
       });
-      
-      if (!result.ok) {
-        throw new Error('Network response was not ok');
-      }
-      
-      const data = await result.json();
-      setLoading(false);
-      setResponse(data.story);
+      setLoading(false)
+      setResponse(result.data.story);
     } catch (error) {
       console.error('Error:', error);
       setResponse("An error occurred while processing your request");
-      setLoading(false);
     }
   }
+
   return (
     <div className='max-w-2xl mx-auto flex px-4'>
       <div className='py-8 flex flex-col justify-center'>
