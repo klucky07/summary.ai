@@ -16,7 +16,7 @@ function App() {
     e.preventDefault();
     try {
       setLoading(true)
-      const result = await axios.post(`https://summary-ai-six.vercel.app/create-story`, {
+      const result = await axios.post(`http://summary-ai-six.vercel.app/create-story`, {
         prompt: inputs
       });
       setLoading(false)
