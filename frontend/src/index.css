@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 body{
-  background:linear-gradient(rgb(76, 117, 112)0%,black 40%) #000;
+  background:linear-gradient(rgb(70, 154, 177)0%,rgb(40, 64, 63) 40%) #000;
   @apply text-white min-h-dvh;
 }

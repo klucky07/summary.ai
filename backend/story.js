@@ -37,7 +37,7 @@ const {
       ],
     });
   
-    const result = await chatSession.sendMessage(  `write a short summary on the content of this url ${content}`);
+    const result = await chatSession.sendMessage(  `write a short summary on content of the url but not about the website structure , write only about what the website structure will be displaying ${content}`);
     console.log(result.response.text());
     return  result.response.text();
 
