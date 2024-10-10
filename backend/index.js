@@ -7,9 +7,9 @@ const app = express();
 
 app.use(cors(
   {
-    origin: ['http://summary-ai-utp1.vercel.app/'], 
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
-
+    origin: ['https://summary-ai-utp1.vercel.app/'], 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    Credentials:true
   
   }
 ));
